@@ -1,0 +1,52 @@
+.tool-box {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  padding: 40px 20px;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.tool-box:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+/* ✨ Daha havalı ışık animasyonu */
+.tool-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  filter: blur(20px);
+  transform: skewX(-25deg);
+}
+
+.tool-box:hover::after {
+  animation: shine 1.5s ease forwards;
+}
+
+@keyframes shine {
+  0% {
+    left: -120%;
+  }
+  50% {
+    left: 20%;
+    opacity: 1;
+  }
+  100% {
+    left: 150%;
+    opacity: 0;
+  }
+}
