@@ -5,13 +5,16 @@ function RemoveBg() {
   const [resultImage, setResultImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const API_BASE = import.meta.env.VITE_API_BASE; // .env içindeki backend adresi
+  // Backend Render URL
+  const API_BASE = "https://ai-web-backend-1.onrender.com";
 
+  // Dosya seçildiğinde çalışır
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
     setResultImage(null);
   };
 
+  // Dosyayı backend’e gönder
   const handleUpload = async () => {
     if (!selectedFile) {
       alert("Lütfen bir dosya seçin!");
@@ -23,71 +26,40 @@ function RemoveBg() {
 
     try {
       setLoading(true);
-
       const response = await fetch(`${API_BASE}/arka-plan-kaldir`, {
         method: "POST",
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error("Arka plan kaldırma başarısız oldu.");
+        throw new Error("Sunucudan hata döndü");
       }
 
+      // Backend’den gelen dosyayı blob olarak al
       const blob = await response.blob();
       const imageUrl = URL.createObjectURL(blob);
       setResultImage(imageUrl);
     } catch (error) {
-      console.error(error);
-      alert("Bir hata oluştu!");
+      alert("Bir hata oluştu: " + error.message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
-      <h2>Arka Plan Kaldırma</h2>
-      <input type="file" accept="image/*" onChange={handleFileChange} />
-      <br />
-      <button
-        onClick={handleUpload}
-        disabled={loading}
-        style={{
-          marginTop: "10px",
-          padding: "10px 20px",
-          backgroundColor: "#4CAF50",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
+    <div className="remove-bg-container" style={{ textAlign: "center", marginTop: "40px" }}>
+      <h2>Arka Plan Kaldır</h2>
+      <input type="file" onChange={handleFileChange} />
+      <button onClick={handleUpload} disabled={loading}>
         {loading ? "İşleniyor..." : "Yükle ve İşle"}
       </button>
 
       {resultImage && (
         <div style={{ marginTop: "20px" }}>
-          <h3>Sonuç</h3>
-          <img
-            src={resultImage}
-            alt="Sonuç"
-            style={{ maxWidth: "100%", border: "1px solid #ddd", borderRadius: "8px" }}
-          />
-          <br />
-          <a
-            href={resultImage}
-            download="sonuc.png"
-            style={{
-              display: "inline-block",
-              marginTop: "10px",
-              padding: "10px 20px",
-              backgroundColor: "#2196F3",
-              color: "white",
-              textDecoration: "none",
-              borderRadius: "5px",
-            }}
-          >
-            İndir
+          <h3>Sonuç:</h3>
+          <img src={resultImage} alt="Sonuç" style={{ maxWidth: "100%", border: "1px solid #ccc" }} />
+          <a href={resultImage} download="output.png">
+            <button style={{ marginTop: "10px" }}>İndir</button>
           </a>
         </div>
       )}
