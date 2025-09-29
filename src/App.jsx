@@ -1,4 +1,7 @@
-export default function App() {
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import RemoveBg from "./RemoveBg";
+
+function Home() {
   return (
     <div className="page">
       {/* Üst renkli header alanı */}
@@ -21,10 +24,10 @@ export default function App() {
 
       {/* Araç kartları */}
       <section className="tools">
-        <div className="card">
+        <Link to="/arka-plan-kaldir" className="card">
           <h3>Arka Plan Kaldır</h3>
           <p>Fotoğraflarınızdan arka planı saniyeler içinde kaldırın.</p>
-        </div>
+        </Link>
         <div className="card">
           <h3>Fotoğraf Netleştir</h3>
           <p>Bulanık fotoğraflarınızı yapay zeka ile daha net hale getirin.</p>
@@ -35,5 +38,16 @@ export default function App() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/arka-plan-kaldir" element={<RemoveBg />} />
+      </Routes>
+    </Router>
   );
 }
