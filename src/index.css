@@ -1,3 +1,4 @@
+/* Genel */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -23,10 +24,30 @@ body {
   font-weight: bold;
 }
 
-/* Ana sayfa bölümleri */
+/* Ana sayfa video bölümü */
 .intro {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
   text-align: center;
-  padding: 40px 20px;
+}
+.bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+.overlay {
+  position: relative;
+  z-index: 1;
 }
 .intro .title {
   font-size: 32px;
@@ -34,10 +55,10 @@ body {
 }
 .intro .subtitle {
   font-size: 18px;
-  color: #555;
+  color: #eee;
 }
 
-/* Kartlar */
+/* Araç kartları */
 .tools {
   display: flex;
   justify-content: center;

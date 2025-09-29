@@ -14,12 +14,17 @@ function Home() {
         </nav>
       </header>
 
-      {/* Ana başlık */}
+      {/* Video Arka Planlı Başlık */}
       <section className="intro">
-        <h1 className="title">AI ile Fotoğraf Düzenleme</h1>
-        <p className="subtitle">
-          Arka plan kaldır, fotoğraf netleştir, dosya çevir — hepsi tek bir yerde!
-        </p>
+        <video autoPlay muted loop className="bg-video">
+          <source src="/ilteray.mp4" type="video/mp4" />
+        </video>
+        <div className="overlay">
+          <h1 className="title">AI ile Fotoğraf Düzenleme</h1>
+          <p className="subtitle">
+            Arka plan kaldır, fotoğraf netleştir, dosya çevir — hepsi tek bir yerde!
+          </p>
+        </div>
       </section>
 
       {/* Araç kartları */}
